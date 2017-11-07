@@ -52,7 +52,7 @@ public class PBXFileReference: PBXObject, Hashable {
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
-        self.lastKnownFileType = lastKnownFileType ?? path.flatMap { PBXFileReference.fileType(path: Path($0)) }
+        self.lastKnownFileType = lastKnownFileType
         self.name = name
         self.path = path
         self.sourceTree = sourceTree
@@ -104,8 +104,10 @@ public class PBXFileReference: PBXObject, Hashable {
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
         self.sourceTree = try container.decodeIfPresent(.sourceTree)
-        self.usesTabs = try container.decodeIfPresent(.usesTabs)
-        self.lineEnding = try container.decodeIfPresent(.lineEnding)
+        let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
+        self.usesTabs = usesTabString.flatMap(Int.init)
+        let lineEndingString: String? = try container.decodeIfPresent(.lineEnding)
+        self.lineEnding = lineEndingString.flatMap(Int.init)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
         try super.init(from: decoder)
     }

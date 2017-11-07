@@ -1,0 +1,12 @@
+name: Carthage
+targets:
+  xcproj:
+    type: framework
+    platform: [iOS, macOS]
+    sources: Sources/xcproj
+    scheme: {}
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: swift.xcode.xcproj
+    dependencies:
+      - carthage: PathKit
+      - carthage: AEXML

@@ -1,9 +1,11 @@
 os:
 - osx
 language: generic
-osx_image: xcode9
+osx_image: xcode9.1
 install:
 - bundle install
+before_script:
+- carthage update --platform iOS,macOS
 script:
 - bundle exec rake ci
 after_success:
